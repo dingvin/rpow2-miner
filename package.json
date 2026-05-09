@@ -1,0 +1,15 @@
+{
+  "name": "rpow2-miner",
+  "version": "2.0.0",
+  "description": "Fast CLI miner for rpow2.com — no dependencies, pure Node.js",
+  "main": "miner.js",
+  "scripts": {
+    "start": "node miner.js"
+  },
+  "keywords": ["rpow2", "miner", "proof-of-work", "sha256", "crypto"],
+  "author": "dingvin",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

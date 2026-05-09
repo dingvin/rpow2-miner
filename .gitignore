@@ -1,0 +1,4 @@
+node_modules/
+.rpow-session
+*.log
+.env
