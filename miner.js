@@ -88,7 +88,6 @@ function request(method, path, body, cookie) {
       method,
       headers: {
         'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br, zstd',
         'Accept-Language': 'en-US,en;q=0.8',
         'Content-Type': 'application/json',
         'Cookie': cookie,
