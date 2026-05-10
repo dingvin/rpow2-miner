@@ -86,12 +86,22 @@ function request(method, path, body, cookie) {
       path,
       method,
       headers: {
-        'Accept': 'application/json',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br, zstd',
+        'Accept-Language': 'en-US,en;q=0.8',
         'Content-Type': 'application/json',
         'Cookie': cookie,
-        'User-Agent': 'Mozilla/5.0',
         'Origin': 'https://rpow2.com',
+        'Priority': 'u=1, i',
         'Referer': 'https://rpow2.com/',
+        'Sec-Ch-Ua': '"Chromium";v="148", "Brave";v="148", "Not/A)Brand";v="99"',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '"Windows"',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-site',
+        'Sec-Gpc': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36',
       }
     };
     if (bodyStr) options.headers['Content-Length'] = Buffer.byteLength(bodyStr);
