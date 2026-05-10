@@ -3,6 +3,7 @@ process.stdout.write('\x1b[32m'); // green text
 
 const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
 const crypto = require('crypto');
+const zlib = require('zlib');
 const https = require('https');
 const os = require('os');
 
@@ -107,9 +108,16 @@ function request(method, path, body, cookie) {
     if (bodyStr) options.headers['Content-Length'] = Buffer.byteLength(bodyStr);
 
     const req = https.request(options, res => {
-      let raw = '';
-      res.on('data', chunk => raw += chunk);
-      res.on('end', () => {
+      const encoding = res.headers['content-encoding'];
+      let stream = res;
+      if (encoding === 'gzip') stream = res.pipe(zlib.createGunzip());
+      else if (encoding === 'br') stream = res.pipe(zlib.createBrotliDecompress());
+      else if (encoding === 'deflate') stream = res.pipe(zlib.createInflate());
+      
+      const chunks = [];
+      stream.on('data', chunk => chunks.push(chunk));
+      stream.on('end', () => {
+        const raw = Buffer.concat(chunks).toString('utf8');
         const setCookie = res.headers['set-cookie'];
         try { resolve({ status: res.statusCode, body: JSON.parse(raw), setCookie }); }
         catch { resolve({ status: res.statusCode, body: raw, setCookie }); }
